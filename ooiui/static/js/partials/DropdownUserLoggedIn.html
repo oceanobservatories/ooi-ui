@@ -1,6 +1,11 @@
 <!-- <li class="dropdown"> -->
   <a id="logged-in-user"class="dropdown-toggle" data-toggle="dropdown" href="#">
-    <i class="fa fa-user fa-fw"></i> <%= user.get('user_name') %> <i class="fa fa-caret-down"></i>
+      <% if(is_anon){ %>
+    <i class="fa fa-user fa-fw"></i> Anonymous
+      <% }else{ %>
+      <i class="fa fa-user fa-fw"></i> <%= user.get('email') %>
+      <% } %>
+      <i class="fa fa-caret-down"></i>
   </a>
   <ul class="dropdown-menu dropdown-user">
 

@@ -127,8 +127,7 @@ var ImagePlotView = BasePlot.extend({
 
     var img = new Image();
     img.src = url;
-    // img.height = 600;
-    // img.width = Math.floor($('#plotContainer').width()*.9);
+    img.width = Math.floor($('#plotContainer').width()*.9);
     img.id  = "dataPlot";
     img.onload=function(){
                           self.$el.find('.fa-spin').remove();
@@ -139,9 +138,6 @@ var ImagePlotView = BasePlot.extend({
                           $('.download-plot-container').css('display','block');
                          }
     this.$el.find('#plotContainerInner').append(img);
-    $('#dataPlot').attr('width', '95%');
-    $('#dataPlot').attr('height', '95%');
-
 
     this.$el.find('#dataPlot').error(function(e,r,s) {
       if (valid){

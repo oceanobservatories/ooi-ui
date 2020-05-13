@@ -34,13 +34,17 @@ var DropdownUserView = Backbone.View.extend({
   },
   initialize: function() {
     var self = this;
+    var isAnon = false;
     _.bindAll(this, "render", "login", "logout");
     if(this.model.loggedIn()) {
       this.userModel = new UserModel();
       this.userModel.fetch({
         url: '/api/current_user',
-        success: function() {
-          self.renderLoggedIn();
+        success: function(user_model) {
+          if (!user_model.get('email').includes('@')) {
+            isAnon = true;
+          }
+          self.renderLoggedIn(isAnon);
         },
         error: function() {
           self.renderLoggedOut();
@@ -54,8 +58,8 @@ var DropdownUserView = Backbone.View.extend({
     loggedIn: JST['ooiui/static/js/partials/DropdownUserLoggedIn.html'],
     loggedOut: JST['ooiui/static/js/partials/DropdownUserLoggedOut.html']
   },
-  renderLoggedIn: function() {
-    this.$el.html(this.template.loggedIn({user: this.userModel}));
+  renderLoggedIn: function(isAnon) {
+    this.$el.html(this.template.loggedIn({user: this.userModel, is_anon: isAnon}));
   },
   renderLoggedOut: function() {
       this.$el.html(this.template.loggedOut());
