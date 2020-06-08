@@ -1,5 +1,14 @@
 [
   {
+        "VersionNumber": "1.9.1",
+        "VersionDate": "2020-06-09",
+        "VersionDescription": [
+            "Data Catalog: Fixes platform and instrument filters. (14742)",
+            "Data Catalog: Changes parameter standard name to contents of netcdf_name. (14737)",
+            "Media: Fixes broken elemental reference. (14757)"
+        ]
+  },
+  {
         "VersionNumber": "1.9.0",
         "VersionDate": "2020-05-07",
         "VersionDescription": [
