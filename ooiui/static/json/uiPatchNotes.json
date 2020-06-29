@@ -1,5 +1,12 @@
 [
   {
+        "VersionNumber": "1.9.2",
+        "VersionDate": "2020-06-29",
+        "VersionDescription": [
+            "Security: Fixes user profile scope rendering. (14783)"
+        ]
+  },
+  {
         "VersionNumber": "1.9.1",
         "VersionDate": "2020-06-09",
         "VersionDescription": [

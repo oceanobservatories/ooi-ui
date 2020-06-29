@@ -8,13 +8,16 @@
       <span class="help-block hidden"></span>
     </div>
   </div>
-  <div class="form-group" id="active_div">
+
+  <% if(isAdmin === true) { %>
+  <div class="form-group" id="active_div" hidden>
     <label class="col-sm-3 control-label">Account Enabled</label>
     <div class="col-sm-6">
       <input type="checkbox" class="form-control" id="active" name="active" style="box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.075);" />
       <span class="help-block hidden"></span>
     </div>
   </div>
+  <% } %>
 
   <hr width ="80%">
 
@@ -116,7 +119,8 @@
     <button type="button" id="refreshTokenButton" class="btn btn-success">Refresh API Token</button>
   </div>
 
-  <div id="scope_div">
+  <% if(isAdmin === true) { %>
+  <div id="scope_div" hidden>
     <h3> User Scopes </h3>
     <div class="form-group">
       <% scopes.each(function(scope) { %>
@@ -129,6 +133,7 @@
       <% }); %>
     </div>
   </div>
+  <% } %>
 
   <hr width="80%">
 
