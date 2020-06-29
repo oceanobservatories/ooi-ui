@@ -95,30 +95,46 @@ var UserEditFormView = Backbone.View.extend({
   },
   template: JST['ooiui/static/js/partials/UserEditForm.html'],
   render: function() {
-    this.$el.html(this.template({scopes: this.scopes}));
+    let self = this;
+    let isAdmin = false;
     // Only allow scope modification if
-    var userModel = new UserModel();
+    let userModel = new UserModel();
     userModel.url = '/api/current_user';
 
     userModel.fetch({
       success: function(collection, response, options) {
-        var scopes = response.scopes;
+        let scopes = response.scopes;
         self.userScopes = scopes;
 
-        if(scopes.includes('user_admin')){
+        if(scopes.includes('user_admin')) {
+          isAdmin = true;
+        }
+
+        // Check if the user is an admin and only render the scopes if so.
+        if (isAdmin === true) {
+          self.$el.html(self.template({scopes: self.scopes, isAdmin: isAdmin}));
+          self.$el.append(self.modalDialog.el);
+          self.stickit();
+        } else {
+          self.$el.html(self.template({scopes: [], isAdmin: isAdmin}));
+          self.$el.append(self.modalDialog.el);
+          self.stickit();
+        }
+
+        if(isAdmin === true){
           $("#scope_div").show();
           $("#active_div").show();
         } else {
           $("#scope_div").hide();
           $("#active_div").hide();
         }
+
       },
       error:function(collection, response, options) {
         console.log('Error getting user data');
       }
     });
 
-    this.$el.append(this.modalDialog.el);
-    this.stickit();
+
   }
 });
