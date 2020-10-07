@@ -1,4 +1,10 @@
 <div class="navbar navbar-default navbar-fixed-top" role='navigation' class="container">
+
+  <div id="ribbon-container-top">
+      <a href="https://dataexplorer.oceanobservatories.org/" target="_blank" id="ribbon-top">Visit OOI Data Explorer</a>
+      <img src="/img/new-badge-2-48.png"/>
+  </div>
+
   <div class="navbar-collapse collapse">
 
     <ul id="navbar-menus" class="nav navbar-top-links-new navbar-left">
@@ -70,32 +76,25 @@
     </ul>
 
     <ul id="navbar-menus-right" class="nav navbar-top-links-new navbar-right">
-      <li style="top: 6px;right: 60px;">
+      <li class="dropdown" style="top: 8px;">
         <label for="navSearch" title="Search"><i class="fa fa-search"> </i>  Data Catalog Search</label>
         <input type="text" width="200px" id="navSearch">
       </li>
-      <li style="top: 6px;right: 42px;">
+      <li class="dropdown" style="top: 8px;">
         <a href="/help">
           <i class="fa fa-exclamation-triangle" id="mainHelpLink"> </i>  Help
         </a>
       </li>
-      <li style="top: 6px;right: 42px;">
+      <li class="dropdown" style="top: 8px;">
         <a href="http://oceanobservatories.org/glossary/" target="_blank">
           <i class="fa fa-book"> </i>  Glossary
         </a>
       </li>
-      <li style="top: 6px;right: 42px;">
-        <a href="http://oceanobservatories.org/knowledgebase/" target="_blank">
+      <li class="dropdown" style="top: 8px;">
+        <a href="http://oceanobservatories.org/faqs-knowledgebase/" target="_blank">
           <i class="fa fa-question"> </i>  FAQ
         </a>
       </li>
-      <!-- TODO: Figure out why the forum isn't working, but hide this until it does.
-      <li style="top: 6px;right: 42px;">
-        <a href="https://forum.oceanobservatories.org/" target="_blank">
-          <i class="fa fa-commenting"> </i>  Forum
-        </a>
-      </li>
-      -->
     </ul> <!-- nav navbar-top-links-new navbar-right -->
 
   </div><!--/.nav-collapse -->
