@@ -1,5 +1,12 @@
 [
   {
+    "VersionNumber": "1.9.4",
+    "VersionDate": "2021-05-26",
+    "VersionDescription": [
+      "Data Catalog: Updated Node filter for gliders on Data Catalog page."
+    ]
+  },
+  {
         "VersionNumber": "1.9.3",
         "VersionDate": "2020-10-06",
         "VersionDescription": [
