@@ -1479,9 +1479,9 @@
 
       // IRIS Link
       if(rowObject.iris_enabled) {
-        actionButtons += "<button type='button' title='Access External Data - IRIS' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><img class='donotenlarge' style='max-height:14px;' src='/img/mda-icon-50x50.png' alt='IRIS'</img></button>";
+        actionButtons += "<button type='button' title='Access External Data - IRIS' style='float:left' id='goDownload' class='btn btn-default' target='_blank' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><img class='donotenlarge' style='max-height:14px;' src='/img/mda-icon-50x50.png' alt='IRIS'</img></button>";
       }else if(rowObject.rds_enabled){
-        actionButtons += "<button type='button' title='Access Raw Data Server' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
+        actionButtons += "<button type='button' title='Access Raw Data Server' style='float:left' id='goDownload' class='btn btn-default' target='_blank' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\"><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }else{
         actionButtons += "<button type='button' title='Access External Data' style='float:left' id='goDownload' class='btn btn-default' onclick=\"openExternalDownload('" + rowObject.reference_designator + "','" + rowObject.stream_name + "','" + rowObject.iris_link + "','" + rowObject.iris_enabled + "','" + rowObject.rds_link + "','" + rowObject.rds_enabled + "',null);\" disabled><i style='font-size:14px;float:left;pointer-events: none;' class='fa fa-external-link' aria-hidden='true'></i></button>";
       }
@@ -1524,10 +1524,12 @@
       var message = "";
 
       if(rds_enabled === "true") {
+        let rds_link_url = new URL(rds_link)
+          rds_link_url.hostname = 'rawdata.oceanobservatories.org'
         var theRDSMessage = "<div style='font-size: 16px;text-align:center;padding-top: 10px;'>";
         theRDSMessage += '<div style="width=100%;margin-top:15px;"><p><img src="/img/logos-banners/OOI_Logo_RGB.png" alt="OOI" height="100"></p></div>';
         theRDSMessage += "You are about to navigate to the OOI raw data server.";
-        theRDSMessage += "<p><a id='rds_link_message' onClick='hideModal();' target='_blank' href='" + rds_link + "'>Click Here to Proceed</a></p>";
+        theRDSMessage += "<p><a id='rds_link_message' onClick='hideModal();' target='_blank' href='" + rds_link_url.href + "'>Click Here to Proceed</a></p>";
         theRDSMessage += "</div>";
         message += theRDSMessage
       }

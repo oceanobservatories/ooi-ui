@@ -1,5 +1,12 @@
 [
   {
+    "VersionNumber": "1.9.5",
+    "VersionDate": "2021-08-02",
+    "VersionDescription": [
+      "Data Catalog: Updated RDS icon link hostname to RDS external server."
+    ]
+  },
+  {
     "VersionNumber": "1.9.4",
     "VersionDate": "2021-05-26",
     "VersionDescription": [
