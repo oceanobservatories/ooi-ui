@@ -1,5 +1,12 @@
 [
   {
+    "VersionNumber": "1.9.6",
+    "VersionDate": "2021-09-10",
+    "VersionDescription": [
+      "Data Catalog: Annotations now shown for the selected stream regardless of time boundaries. (15109)"
+    ]
+  },
+  {
     "VersionNumber": "1.9.5",
     "VersionDate": "2021-08-02",
     "VersionDescription": [
