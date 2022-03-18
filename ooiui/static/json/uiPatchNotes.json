@@ -1,5 +1,12 @@
 [
   {
+    "VersionNumber": "1.9.7",
+    "VersionDate": "2022-03-18",
+    "VersionDescription": [
+      "Security: Updated jQuery version."
+    ]
+  },
+  {
     "VersionNumber": "1.9.6",
     "VersionDate": "2021-09-10",
     "VersionDescription": [
