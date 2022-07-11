@@ -1,5 +1,12 @@
 [
   {
+    "VersionNumber": "1.9.8",
+    "VersionDate": "2022-07-11",
+    "VersionDescription": [
+      "Data Catalog: Fixed deployment metadata cache updates. (15259)",
+      "Security: Updated grunt version."
+    ]
+  },{
     "VersionNumber": "1.9.7",
     "VersionDate": "2022-03-18",
     "VersionDescription": [
