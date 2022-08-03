@@ -32,12 +32,11 @@ var TileMap = Backbone.View.extend({
         // transparent: true
       });
 
-      // Commenting this out for now until security and web mapping service performance are resolved
-      // TODO: Change to https://www.gmrt.org/services/mapserver/wms_merc?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&
-      var highResMap = L.tileLayer.wms('https://maps.oceanobservatories.org/mapserv?map=/public/mgg/web/gmrt.marine-geo.org/htdocs/services/map/wms_merc.map&', {
+      // Uses gmrt.org external service
+      var highResMap = L.tileLayer.wms('https://www.gmrt.org/services/mapserver/wms_merc?', {
         // maxZoom: 12,
         // minZoom: 2.6,
-        attribution: 'Global Multi-Resolution Topography (GMRT), Version 3.2',
+        attribution: 'Global Multi-Resolution Topography (GMRT), Version 4.0',
         layers: 'topo',
         format: 'image/png',
         transparent: true,
