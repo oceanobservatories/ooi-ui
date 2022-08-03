@@ -1,12 +1,20 @@
 [
   {
+    "VersionNumber": "1.9.9",
+    "VersionDate": "2022-08-03",
+    "VersionDescription": [
+      "General: Fixed GMRT map url due to 3rd party change."
+    ]
+  },
+  {
     "VersionNumber": "1.9.8",
     "VersionDate": "2022-07-11",
     "VersionDescription": [
       "Data Catalog: Fixed deployment metadata cache updates. (15259)",
       "Security: Updated grunt version."
     ]
-  },{
+  },
+  {
     "VersionNumber": "1.9.7",
     "VersionDate": "2022-03-18",
     "VersionDescription": [
