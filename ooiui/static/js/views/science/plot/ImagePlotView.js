@@ -123,10 +123,14 @@ var ImagePlotView = BasePlot.extend({
     var recursiveEncoded = $.param( inputParams );
 
     var url = '/svg/plot/' + reference_designator + '/' + stream_name + "?" + recursiveEncoded;
-    this.$el.find('#plotContainerInner').append('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:0%;font-size:90px;"> </i>');
+
+    var src = document.getElementById("plotContainer");
+    var plotview = document.getElementById("plot-view");
+
+    this.$el.html('<i class="fa fa-spinner fa-spin" style="margin-top:40px;margin-left:45%;font-size:90px;"> </i>');
 
     var img = new Image();
-    img.src = url;
+
     img.width = Math.floor($('#plotContainer').width()*.9);
     img.id  = "dataPlot";
     img.onload=function(){
@@ -137,16 +141,20 @@ var ImagePlotView = BasePlot.extend({
                           //show the download
                           $('.download-plot-container').css('display','block');
                          }
-    this.$el.find('#plotContainerInner').append(img);
-
-    this.$el.find('#dataPlot').error(function(e,r,s) {
-      if (valid){
+    img.onerror = function() {
         ooi.trigger('plot:error', {title: "Image Plot Error", message:"There was an error creating the image, please review selections and try again. If the problem persists, please email helpdesk@oceanobservatories.org "} );
         self.$el.find('#dataPlot').remove();
-      }
-    })
+    }
 
+    img.src = url;
+    src.appendChild(img);
 
+    plotview.style.height = src.style.height;
 
+    if (typeof(src) == 'undefined' || src == null)
+    {
+       ooi.trigger('plot:error', {title: "Image Plot Error", message:"There was an error creating the image, please review selections and try again. If the problem persists, please email helpdesk@oceanobservatories.org "} );
+       self.$el.find('#dataPlot').remove();
+    }
   }
 });
