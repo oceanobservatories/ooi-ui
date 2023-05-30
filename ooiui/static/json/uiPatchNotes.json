@@ -1,5 +1,14 @@
 [
   {
+    "VersionNumber": "1.9.10",
+    "VersionDate": "2023-05-30",
+    "VersionDescription": [
+      "General: Updated Google Analytics."
+      "General: Updated help page links and text. (15566)"
+      "Data Catalog: Fixed binned pseudocolor and 3D scatter plotting. (15074)"
+    ]
+  },
+  {
     "VersionNumber": "1.9.9",
     "VersionDate": "2022-08-03",
     "VersionDescription": [
