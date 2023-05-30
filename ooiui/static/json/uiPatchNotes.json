@@ -3,8 +3,8 @@
     "VersionNumber": "1.9.10",
     "VersionDate": "2023-05-30",
     "VersionDescription": [
-      "General: Updated Google Analytics."
-      "General: Updated help page links and text. (15566)"
+      "General: Updated Google Analytics.",
+      "General: Updated help page links and text. (15566)",
       "Data Catalog: Fixed binned pseudocolor and 3D scatter plotting. (15074)"
     ]
   },
