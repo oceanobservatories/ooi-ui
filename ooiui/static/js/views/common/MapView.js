@@ -786,12 +786,13 @@ var ASSET_ARRAY = (function() {
             "southern":[200,250]
         },
         arrayCodes =   {
-            "CP":"Coastal Pioneer",
-            "CE":"Endurance & Cabled Array",
-            "GP":"Station Papa",
-            "GI":"Irminger Sea",
-            "GA":"Argentine Basin",
-            "GS":"Southern Ocean"
+            "CP0":"Coastal Pioneer CES",
+            "CP1":"Coastal Pioneer MAB",
+            "CE0":"Endurance & Cabled Array",
+            "GP0":"Station Papa",
+            "GI0":"Irminger Sea",
+            "GA0":"Argentine Basin",
+            "GS0":"Southern Ocean"
         };
     return {
         getArrayTitle :     function(key) { return (key) ? arrayTitle[key] : arrayTitle; },
