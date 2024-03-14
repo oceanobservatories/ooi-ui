@@ -3,7 +3,7 @@ var GliderTrackModel = Backbone.Model.extend({
   defaults: {
         enabled: false,
         arrayCodes:{
-            "CP0":"Coastal Pioneer CES",
+            "CP0":"Coastal Pioneer NES",
             "CP1":"Coastal Pioneer MAB",
             "CE0":"Coastal Endurance",
             "RS0":"Cabled Array",

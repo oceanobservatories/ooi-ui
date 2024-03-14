@@ -786,7 +786,7 @@ var ASSET_ARRAY = (function() {
             "southern":[200,250]
         },
         arrayCodes =   {
-            "CP0":"Coastal Pioneer CES",
+            "CP0":"Coastal Pioneer NES",
             "CP1":"Coastal Pioneer MAB",
             "CE0":"Endurance & Cabled Array",
             "GP0":"Station Papa",
