@@ -89,7 +89,7 @@ var VectorMap = Backbone.View.extend({
                     }));
 
                     var referencePlatforms = [];
-                    var primaryArray = renderContext.platformId.substr(0,2);
+                    var primaryArray = renderContext.platformId.substr(0,3);
                     _.each(renderContext.collection.byArray(primaryArray).toGeoJSON(), function(geoJSON) {
                         referencePlatforms.push(geoJSON);
                     });
