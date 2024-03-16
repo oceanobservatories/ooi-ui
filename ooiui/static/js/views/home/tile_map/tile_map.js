@@ -355,13 +355,13 @@ var TileMap = Backbone.View.extend({
         // console.log('platform.feature.properties.code.length');
         // console.log(platform.feature.properties.code.length);
 
-        if(platform._icon && platform.feature.properties.code.length > 2){
+        if(platform._icon && platform.feature.properties.code.length > 3){
           $(platform._icon).show();
           platform._icon.style.opacity = 1;
           platform._icon.style.zIndexOffset = 10000000;
           // platform._icon.className = "leaflet-marker-icon mydivicon leaflet-zoom-animated leaflet-clickable"
         }
-        if(platform._icon && platform.feature.properties.code.length < 3){
+        if(platform._icon && platform.feature.properties.code.length < 4){
           // console.log('Are we turning off the arrays or not?');
           $(platform._icon).hide();
           platform._icon.style.opacity = 0;
@@ -384,13 +384,13 @@ var TileMap = Backbone.View.extend({
       if(!_.isUndefined(platform.feature)) {
         // console.log('platform.feature.properties.code.length');
         // console.log(platform.feature.properties.code.length);
-        if (platform._icon && platform.feature.properties.code.length > 2) {
+        if (platform._icon && platform.feature.properties.code.length > 3) {
           $(platform._icon).hide();
           platform._icon.style.opacity = 0;
           platform._icon.style.zIndex = -1;
           // platform._icon.className = "leaflet-marker-icon mydivicon-nopointer leaflet-zoom-animated"
         }
-        if (platform._icon && platform.feature.properties.code.length < 3) {
+        if (platform._icon && platform.feature.properties.code.length < 4) {
           $(platform._icon).show();
           platform._icon.style.opacity = 1;
           platform._icon.style.zIndexOffset = 10000000;
