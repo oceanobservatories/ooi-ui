@@ -481,7 +481,7 @@ var TileMap = Backbone.View.extend({
                 // console.log(map._isArrayView);
                 if(!map._isArrayView) {
                   // Set table row with an orange border
-                  $('#' + feature.properties.code.substring(0, 2) + ' table tbody tr[data-code="' + feature.properties.code + '"]').css("border", "4px solid orange");
+                  $('#' + feature.properties.code.substring(0, 3) + ' table tbody tr[data-code="' + feature.properties.code + '"]').css("border", "4px solid orange");
 
                   // Adds pop-up info on each point
                   content = '<pre class="infoInner" style="white-space: pre-wrap;">' + feature.properties.title + " (" + feature.properties.code + ")" + '<br>' + '<span>Latitude: ' + JSON.stringify(Number(event.latlng.lat.toFixed(4))) + '<br>Longitude: ' + JSON.stringify(Number(event.latlng.lng.toFixed(4))) + '</span></pre>';
@@ -497,7 +497,7 @@ var TileMap = Backbone.View.extend({
               // Hide the pop-up info for a point
               layer.on('mouseout', function (event) {
                 if(!map._isArrayView) {
-                  $('#' + feature.properties.code.substring(0, 2) + ' table tbody tr[data-code="' + feature.properties.code + '"]').css("border", "");
+                  $('#' + feature.properties.code.substring(0, 3) + ' table tbody tr[data-code="' + feature.properties.code + '"]').css("border", "");
                   $('pre.infoInner').replaceWith('<pre class="infoInner" style="white-space: pre-wrap;"></pre>');
                   $('#infoArrayMap').css({"display": "none"}).fadeOut(10);
                 }
