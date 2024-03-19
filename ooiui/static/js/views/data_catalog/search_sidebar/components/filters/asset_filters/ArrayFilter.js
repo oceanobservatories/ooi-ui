@@ -38,7 +38,7 @@ var ArrayFilterView = FilterParentView.extend({
         var initialFilter = vobj.hash || location.hash;
 
         if (initialFilter.length > 0) {
-            var arrayCode = initialFilter.substr(0,2);
+            var arrayCode = initialFilter.substr(0,3);
             var selector = '[value="'+arrayCode+'"]';
             $(selector).prop('checked', true);
             this.addToArrayFilters(arrayCode);

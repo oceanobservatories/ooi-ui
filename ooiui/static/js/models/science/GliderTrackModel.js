@@ -3,13 +3,14 @@ var GliderTrackModel = Backbone.Model.extend({
   defaults: {
         enabled: false,
         arrayCodes:{
-            "CP":"Coastal Pioneer",
-            "CE":"Coastal Endurance",
-            "RS":"Cabled Array",
-            "GP":"Station Papa",
-            "GI":"Irminger Sea",
-            "GA":"Argentine Basin",
-            "GS":"Southern Ocean"
+            "CP0":"Coastal Pioneer NES",
+            "CP1":"Coastal Pioneer MAB",
+            "CE0":"Coastal Endurance",
+            "RS0":"Cabled Array",
+            "GP0":"Station Papa",
+            "GI0":"Irminger Sea",
+            "GA0":"Argentine Basin",
+            "GS0":"Southern Ocean"
         }
   }
 });

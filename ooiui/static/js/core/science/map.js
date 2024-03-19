@@ -76,11 +76,11 @@ function addMarkers(map,markers){
 	$.getJSON( "/gettoc/?", function( data ) {  
 	  
       /* TOC Menu  */           	
-      buildtocmenu(data['CP']);
+      buildtocmenu(data['CP0']);
       
 	  var markerList = [];    
       $.each( data, function( array, list ) {        
-        if (array == "CP"){
+        if (array == "CP0"){
             $.each( list, function( platform_idx, platform_ob ) {
                 
                 lat = platform_ob['lat']

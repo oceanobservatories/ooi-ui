@@ -47,7 +47,7 @@ var TOCView = Backbone.View.extend({
         filteredPlatforms.map(function(model) {
             try {
                 // get the array code from the reference designator
-                arrayCode = model.get('ref_des').substr(0,2);
+                arrayCode = model.get('ref_des').substr(0,3);
                 // set the target to where this item will be inserted.
                 arrayTarget = '#array_'+ arrayCode;
                 if ( document.getElementById( model.get('ref_des').substring(0,8)) === null ) {
