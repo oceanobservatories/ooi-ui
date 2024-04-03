@@ -1,5 +1,12 @@
 [
   {
+    "VersionNumber": "1.9.11",
+    "VersionDate": "2024-04-03",
+    "VersionDescription": [
+      "General: Updates to support MAB reference designators."
+    ]
+  },
+  {
     "VersionNumber": "1.9.10",
     "VersionDate": "2023-05-30",
     "VersionDescription": [
