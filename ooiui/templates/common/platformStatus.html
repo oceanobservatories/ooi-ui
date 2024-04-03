@@ -121,7 +121,7 @@ _.extend(OOI.prototype, Backbone.Events,  {
 
         var siteData;
         var siteStatusCollection = new SiteStatusCollection();
-        siteStatusCollection.fetch({async: false, url: '/api/uframe/status/sites/'+atob(platformId).substr(0,2)}).done(function() {
+        siteStatusCollection.fetch({async: false, url: '/api/uframe/status/sites/'+atob(platformId).substr(0,3)}).done(function() {
           //console.log('siteStatusCollection');
           //console.log(siteStatusCollection);
           //console.log('siteStatusCollection.toGeoJSON()');

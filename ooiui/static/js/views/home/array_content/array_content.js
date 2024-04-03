@@ -403,7 +403,7 @@ var ArrayContentSummaryItem = ParentView.extend({
       var mBoundsCenter = mBounds.getCenter();
 
 
-      if (code === 'CE') {
+      if (code === 'CE0') {
         // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
         //     flyFlyContext.originalZoom = map.getZoom();
         // map.setLayoutProperty('rsArray', 'visibility', 'none');
@@ -416,7 +416,7 @@ var ArrayContentSummaryItem = ParentView.extend({
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
         // }
-      } else if (code === 'RS') {
+      } else if (code === 'RS0') {
         // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
         //     flyFlyContext.originalZoom = map.getZoom();
         // map.setLayoutProperty('ceArray', 'visibility', 'none');
@@ -429,35 +429,42 @@ var ArrayContentSummaryItem = ParentView.extend({
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
         // }
-      } else if (code === 'CP') {
+      } else if (code === 'CP0') {
         // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
         //     flyFlyContext.originalZoom = map.getZoom();
         map.setView(mBoundsCenter, 8, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
         // }
-      } else if (code === 'GS') {
+      } else if (code === 'CP1') {
+        // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
+        //     flyFlyContext.originalZoom = map.getZoom();
+        map.setView(mBoundsCenter, 8, {animate: false});
+        // } else {
+        //     this._flyBye(flyFlyContext.originalZoom);
+        // }
+      } else if (code === 'GS0') {
         // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
         //     flyFlyContext.originalZoom = map.getZoom();
         map.setView(mBoundsCenter, 6, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
         // }
-      } else if (code === 'GI') {
+      } else if (code === 'GI0') {
         // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
         //     flyFlyContext.originalZoom = map.getZoom();
         map.setView(mBoundsCenter, 7, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
         // }
-      } else if (code === 'GA') {
+      } else if (code === 'GA0') {
         // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
         //     flyFlyContext.originalZoom = map.getZoom();
         map.setView(mBoundsCenter, 6, {animate: false});
         // } else {
         //     this._flyBye(flyFlyContext.originalZoom);
         // }
-      } else if (code === 'GP') {
+      } else if (code === 'GP0') {
         // if ( !_compareGeoLoc(map.getCenter(), loc) ) {
         //     flyFlyContext.originalZoom = map.getZoom();
         // map.setLayoutProperty('rsArray', 'visibility', 'none');

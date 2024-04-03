@@ -191,7 +191,7 @@ var TileMap = Backbone.View.extend({
                 var otherSitesIcon = new L.divIcon({className: 'otherSitesIcon', iconSize: [20, 20]});
 
                 var referencePlatforms = [];
-                var primaryArray = renderContext.platformId.substr(0,2);
+                var primaryArray = renderContext.platformId.substr(0,3);
                 _.each(renderContext.collection.toGeoJSON(), function(geoJSON) {
                     referencePlatforms.push(geoJSON);
                 });
